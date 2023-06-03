@@ -1,0 +1,11 @@
+__pycache__/
+.DS_Store
+sftp-config.json
+**/exp_root
+wandb/
+experiments*/
+configs/unused_configs/
+configs/neurips/
+runs/
+.ipynb_checkpoints/
+Bias_Paper_Plots/

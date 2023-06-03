@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+  {{page_title}}
+{% endblock %} 
+
+{% block body %}
+	{%for category, cat_images  in images.items()%}
+	<h2>{{category}}</h2>
+  <div style="overflow:auto"></div>
+	<div style="display:inline-block">
+	<div style="display:flex; flex-wrap: wrap;">
+	{%for img in cat_images %}
+	<figure style='background-color:{{img["color"]}}'>
+		<figcaption>{{img["label"]}}</figcaption>
+	<img src="{{url_for('send_image', index=img['idx'], dataset=dataset)}}" ></img>
+	</figure>
+	{%endfor%}
+  <div style="overflow:auto"></div>
+	</div>
+	</div>
+	{%endfor%}
+{% endblock %} 

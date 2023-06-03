@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+Results for run training only one attribute.
+{% endblock %} 
+
+{% block body %}
+	<h1>Run Counts</h1>
+	{%for k, v in run_counts.items()%}
+	<h2>{{k}}</h2>
+	{{v | safe}}
+	{%endfor%}
+	<h1> Accs </h1>
+	{%for k, v in run_accs.items()%}
+	<h2>{{k}}</h2>
+	{{v | safe}}
+	{%endfor%}
+	<h1> FPRs </h1>
+	{%for k, v in run_fprs.items()%}
+	<h2>{{k}}</h2>
+	{{v | safe}}
+	{%endfor%}
+	<h1> FNRs </h1>
+	{%for k, v in run_fnrs.items()%}
+	<h2>{{k}}</h2>
+	{{v | safe}}
+	{%endfor%}
+	<h1> Positive prediction % </h1>
+	{%for k, v in run_pred_poss.items()%}
+	<h2>{{k}}</h2>
+	{{v | safe}}
+	{%endfor%}
+	{%for attr, attr_plots in plots.items()%}
+	<h2>{{attr}}</h2>
+	{%for plot_url in attr_plots%}
+	<img src="data:image/png;base64,{{plot_url}}"></img>
+	{%endfor%}
+	{%endfor%}
+	  
+{% endblock %}
