@@ -1,0 +1,32 @@
+# Imagenet + RESNET50 with this config
+# use the hyperparameters from here: https://github.com/adityakusupati/STR/blob/master/configs/largescale/resnet50-gmp.yaml
+
+pruners:
+  pruner_1:
+    class: UnstructuredMagnitudePruner
+    epochs: [2, 1, 16]
+    initial_sparsity: 0.05
+    target_sparsity: 0.80
+    weight_only: True
+    modules: [conv1, layer1.0.conv1, layer1.0.conv2, layer1.1.conv1, layer1.1.conv2,
+              layer2.0.conv1, layer2.0.conv2, layer2.0.downsample.0, layer2.1.conv1, layer2.1.conv2,
+              layer3.0.conv1, layer3.0.conv2, layer3.0.downsample.0, layer3.1.conv1, layer3.1.conv2,
+              layer4.0.conv1, layer4.0.conv2, layer4.0.downsample.0, layer4.1.conv1, layer4.1.conv2, fc]
+    keep_pruned: False
+  
+
+
+trainers:
+  # use this trainer name unless you want KD or other custom thing
+  default_trainer:
+    optimizer:
+      class: SGD
+      lr: 0.1
+      momentum: 0.9
+      weight_decay: 0.0001
+
+    lr_scheduler:
+      class: ExponentialLR
+      gamma: 0.1
+      epochs: [30, 30, 100]
+

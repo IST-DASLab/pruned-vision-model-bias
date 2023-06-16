@@ -1,0 +1,17 @@
+# Imagenet + RESNET50 with this config
+# use the hyperparameters from here: https://github.com/adityakusupati/STR/blob/master/configs/largescale/resnet50-gmp.yaml
+
+trainers:
+  # use this trainer name unless you want KD or other custom thing
+  default_trainer:
+    optimizer:
+      class: SGD
+      lr: 0.1
+      momentum: 0.9
+      weight_decay: 0.0001
+
+    lr_scheduler:
+      class: CosineLR
+      warmup_length: 0
+      end_epoch: 20
+      epochs: [0, 1, 20]

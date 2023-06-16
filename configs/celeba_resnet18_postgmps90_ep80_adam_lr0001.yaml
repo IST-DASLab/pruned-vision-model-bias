@@ -1,0 +1,29 @@
+# Imagenet + MobileNetV1 with this config
+# use the hyperparameters from here: https://github.com/adityakusupati/STR/blob/master/configs/largescale/mobilenetv1-dense.yaml
+
+pruners:
+  pruner_1:
+    class: UnstructuredMagnitudePruner
+    epochs: [1, 4, 60]
+    initial_sparsity: 0.05
+    target_sparsity: 0.90
+    weight_only: True
+    modules: [conv1, layer1.0.conv1, layer1.0.conv2, layer1.1.conv1, layer1.1.conv2,
+              layer2.0.conv1, layer2.0.conv2, layer2.0.downsample.0, layer2.1.conv1, layer2.1.conv2,
+              layer3.0.conv1, layer3.0.conv2, layer3.0.downsample.0, layer3.1.conv1, layer3.1.conv2,
+              layer4.0.conv1, layer4.0.conv2, layer4.0.downsample.0, layer4.1.conv1, layer4.1.conv2, fc]
+    keep_pruned: False
+
+
+trainers:
+  # use this trainer name unless you want KD or other custom thing
+  default_trainer:
+    optimizer:
+      class: Adam
+      lr: 0.0001
+
+    lr_scheduler:
+      class: MultiStepLR
+      milestones: [100]
+      gamma: 0.1
+      epochs: [0, 1, 100]
